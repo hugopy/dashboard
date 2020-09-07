@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- TODO: Add aria-labels -->
+    <!-- TODO: Add javascript for todo-list -->
+    <!-- TODO: Add dark/light mode switch -->
+    <!-- ? Use back-end? -->
+</head>
+<body>
+    <header>
+        <div class="sidebar-toggle">
+            <svg width="2rem" height="2rem" viewBox="0 0 16 16" class="bi bi-chevron-bar-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
+              </svg>
+        </div>
+        <div class="brand">
+            <h1>Dashboard</h1>
+        </div>
+
+        <nav class="header-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Register</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <section id="main">
+
+        <div id="sidebar">
+            <!-- ! Sidebar container not neccessary. Deprecation in future -->
+            <!-- ! <div class="sidebar-container"> -->
+                <ul>
+                    <li><a href="#tool1"><img src="tool1.svg"><p class="sidebar-tool-title">Personal information</p></a></li>
+                    <li><a href="#tool2"><img src="tool2.svg"><p class="sidebar-tool-title">Update register</p></a></li>
+                    <li><a href="#tool2"><img src="tool2.svg"><p class="sidebar-tool-title">Delete register</p></a></li>
+                </ul>
+            <!-- ! </div> -->
+        </div>
+
+        <div class="tools-container">
+            <div class="tool" id="tool1">
+                <h1 class="tool-title">This is tool1! </h1>
+            </div>
+
+            <div class="tool" id="tool2">
+                <h1 class="tool-title">This is tool 2!</h1>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ? is this, like, neccessary? Like, REALLY useful? -->
+    <footer>
+
+        <div class="footer-container">
+            <h3>My footer here!</h3>
+        </div>
+
+    </footer>
+</body>
+
+<script src="script.js"></script>
+</html>

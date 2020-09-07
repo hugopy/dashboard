@@ -1,0 +1,248 @@
+/*                               IMPORTANT!!!
+    *    -> title or summary of a multi-line commentary on code (or, a simple commentary on the code itself, *shrug*)
+    !    -> deprecated, alert, critical
+    TODO -> things that should be done in the future
+    @    -> definitions, parameters and important information on why something os being made.
+    ?    -> doubt, question, should this be done? Is this working correctly as it should be?
+     
+    Nesting is simulated with identation, just for organization purposes. ;)
+
+*/
+
+* {
+    font-family: Ubuntu;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EDEDED;
+}
+
+
+:root {
+
+    /* * RIBBONS (consider ribbon as a common name for header and footer) * */
+
+        --ribbon-bg-color: #222222;
+        --ribbon-txt-color: #ffffff;
+        --header-size: 10vh;
+        --footer-size: calc(var(--header-size)/1.5);
+
+    /* * LAYERS * * /
+
+    /* * there was a problem with tool-container absolute pos. and sidebar. So, zindex is being used. * */
+
+        --zindex-header: 2;
+        --zindex-sidebar: 1;
+
+    /* * DEFAULT PARAMS * */
+
+        --default-border-thin: 2px solid green;
+        --default-border-regular: 3px solid green;
+        --default-border-thick: 4px solid green;
+
+        --default-hover-color: green;
+
+    /* * TIMING PARAMS * */
+
+        --txt-hover-timing: 0.25s;
+        --sidebar-expanse-timing: 0.5s;
+
+    /* * SIDEBAR  * */
+
+        --sidebar-bg-color: var(--ribbon-bg-color);
+        --sidebar-width: 3.5rem;
+        --sidebar-expanded-width: calc(var(--sidebar-width)*3);
+        --tools-container-width: calc(100% - var(--sidebar-width));
+
+}
+
+header {
+    background-color: var(--ribbon-bg-color);
+    color: var(--ribbon-txt-color);
+
+    height: var(--header-size);
+
+    z-index: var(--zindex-header);
+
+    border-bottom: var(--default-border-regular);
+
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+}
+    header > * {    
+        position: absolute;
+        user-select: none;
+    }
+    .sidebar-toggle { left: calc(var(--sidebar-width)*0.2); }
+    
+    .sidebar-toggle:hover { cursor: pointer; }
+
+    .brand { left: calc(var(--sidebar-width)*1.2); }
+
+    .header-nav { right: calc(var(--sidebar-width)*1.2); }
+
+    header ul {
+        list-style: none;
+    }
+        header li {
+            display: inline;
+            padding: 10px;
+        }
+    
+            header li a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            header li a:hover {
+                color: var(--default-hover-color);
+                cursor: pointer;
+                transition-duration: var(--txt-hover-timing);
+            }
+
+#main {
+    display: flex;
+    /* ! Change this color, PLEASE */
+    background-color: lightcoral;
+    /* * Height should be the maximum body height minus header size and footer size * */
+    height: calc( 100vh - calc(var(--header-size) + var(--footer-size)) );
+
+    /* * Position is relative so tool-container is fixed so sidebar doesn't move it* 
+    @ Tool-container is --sidebar-width pixels far from left body border
+    * */
+    position: relative;
+
+}
+    #sidebar {
+        width: var(--sidebar-width);
+        height: 100%;
+
+        color: var(--ribbon-txt-color);
+        background-color: var(--sidebar-bg-color);
+        box-shadow: 0px 0px 5px black;
+
+        transition: width var(--sidebar-expanse-timing) ease;
+
+        z-index: var(--zindex-sidebar);
+
+    }
+
+    /* ! DEPRECATION 1) Deprecated CSS animations. Added Javascript animation for sidebar-toggler. */
+
+    /*
+    #sidebar:hover {
+        width: var(--sidebar-expanded-width);
+
+    }
+
+    #sidebar:hover p {
+        display: block;
+        
+    }
+    */
+
+        #sidebar ul {
+            list-style: none;
+        }
+            #sidebar li {
+                margin-top: 1rem;
+            }
+                #sidebar li a {
+                    display: flex;
+                    align-items: center;
+
+                    /* @ position is relative so SVG doesn't move along with <p> element.*/
+                    position: relative;
+
+                    text-decoration: none;
+                    color: inherit;
+                }
+                    #sidebar li a img {
+
+                        /* *
+                        @ SVG width should be 50% of sidebar's in order to have 25% margin on left and right sides.
+                        * Final result: 25% (empty) - 50% (SVG) - 25% (empty)
+                        * */
+
+                        width: calc(var(--sidebar-width)/2);
+                        margin-left: calc(var(--sidebar-width)/4);
+                    }
+
+                    #sidebar li a p {
+                        display: none;
+                        position: absolute;
+                        width: calc(var(--sidebar-expanded-width)/2);
+                        font-size: calc(var(--sidebar-width)/3.5);
+                        left: calc(0.35*var(--sidebar-expanded-width));
+                    }
+
+                #sidebar li a:hover {
+                    color: var(--default-hover-color);
+                    cursor: pointer;
+                    transition-duration: var(--txt-hover-timing);
+                }
+    
+    .tools-container {
+        width: var(--tools-container-width);
+        /* @ absolute position makes tool-container not moving along with sidebar expansion */
+        position: absolute;
+        
+        left: var(--sidebar-width);
+    
+    }
+
+        .tool {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 0.75rem;
+        }
+
+        #tool1:target {
+            display: flex;
+            flex-direction: column;
+        
+        }
+        
+        #tool2:target {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-title {
+            align-self: center;
+        }
+
+footer {
+    border-top: var(--default-border-regular);
+    background-color: var(--ribbon-bg-color);
+    height: var(--footer-size);
+    text-align: center;
+    color: var(--ribbon-txt-color);
+
+    display: grid;
+    place-items: center;
+}
+
+@media (max-width: 672px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;     /* @  Horizontally aligned */
+        justify-content: center; /* @  Vertically aligned   */
+        height: auto;
+        padding-bottom: 10px;
+    }
+
+    /* * Not first-child - sidebar toggler. It'll still be absolutely positioned to the left.*/
+    header > *:not(:first-child) {
+        position: static;
+    }
+
+    
+}
