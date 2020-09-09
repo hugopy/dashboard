@@ -9,11 +9,17 @@
 
 */
 
+/*@import 'bootstrap.css';*/
+
 * {
     font-family: Ubuntu;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin     : 0;
+    padding    : 0;
+    box-sizing : border-box;
+}
+
+a {
+    text-decoration: none;
 }
 
 body {
@@ -23,45 +29,63 @@ body {
 
 :root {
 
+    /* * COLLOR PALLETE * */
+        --red       : #ee2929;
+        --lightred  : #ec5c6b;
+        --darkred   : #b11717;
+        --orange    : #fd7e14;
+        --darkorange: #aa5b00;
+        --yellow    : #ffc107;
+        --green     : #28a745;
+        --darkgreen : #1e8335;
+        --teal      : #20c997;
+        --cyan      : #17a2b8;
+
     /* * RIBBONS (consider ribbon as a common name for header and footer) * */
 
-        --ribbon-bg-color: #222222;
+        --ribbon-bg-color : #222222;
         --ribbon-txt-color: #ffffff;
-        --header-size: 10vh;
-        --footer-size: calc(var(--header-size)/1.5);
+        --header-size     : 10vh;
+        --footer-size     : calc(var(--header-size)/1.5);
 
     /* * LAYERS * * /
 
     /* * there was a problem with tool-container absolute pos. and sidebar. So, zindex is being used. * */
 
-        --zindex-header: 2;
+        --zindex-header : 2;
         --zindex-sidebar: 1;
 
     /* * DEFAULT PARAMS * */
 
-        --default-border-thin: 2px solid green;
+        --default-border-thin   : 2px solid green;
         --default-border-regular: 3px solid green;
-        --default-border-thick: 4px solid green;
+        --default-border-thick  : 4px solid green;
 
         --default-hover-color: green;
 
     /* * TIMING PARAMS * */
 
-        --txt-hover-timing: 0.25s;
+        --txt-hover-timing      : 0.25s;
         --sidebar-expanse-timing: 0.5s;
 
     /* * SIDEBAR  * */
 
-        --sidebar-bg-color: var(--ribbon-bg-color);
-        --sidebar-width: 3.5rem;
+        --sidebar-bg-color      : var(--ribbon-bg-color);
+        --sidebar-width         : 3.5rem;
         --sidebar-expanded-width: calc(var(--sidebar-width)*3);
-        --tools-container-width: calc(100% - var(--sidebar-width));
+        --tools-container-width : calc(100% - var(--sidebar-width));
+
+    /* * TOOLS - TASK LIST * */
+
+        --task-height      : 2rem;
+        --task-gap         : 0.75rem;
+        --task-children-gap: calc(var(--task-gap)/1.2);
 
 }
 
 header {
     background-color: var(--ribbon-bg-color);
-    color: var(--ribbon-txt-color);
+    color           : var(--ribbon-txt-color);
 
     height: var(--header-size);
 
@@ -69,9 +93,9 @@ header {
 
     border-bottom: var(--default-border-regular);
 
-    display: flex;
+    display    : flex;
     align-items: center;
-    position: relative;
+    position   : relative;
     
 }
     header > * {    
@@ -80,9 +104,9 @@ header {
     }
     .sidebar-toggle { left: calc(var(--sidebar-width)*0.2); }
     
-    .sidebar-toggle:hover { cursor: pointer; }
+        .sidebar-toggle:hover { cursor: pointer; }
 
-    .brand { left: calc(var(--sidebar-width)*1.2); }
+    .brand { left: calc(var(--sidebar-width)*1.2); } 
 
     .header-nav { right: calc(var(--sidebar-width)*1.2); }
 
@@ -131,20 +155,6 @@ header {
         z-index: var(--zindex-sidebar);
 
     }
-
-    /* ! DEPRECATION 1) Deprecated CSS animations. Added Javascript animation for sidebar-toggler. */
-
-    /*
-    #sidebar:hover {
-        width: var(--sidebar-expanded-width);
-
-    }
-
-    #sidebar:hover p {
-        display: block;
-        
-    }
-    */
 
         #sidebar ul {
             list-style: none;
@@ -208,6 +218,68 @@ header {
             flex-direction: column;
         
         }
+            #tool1 .task-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 80%;
+            }
+
+            #tool1 .task {
+                display: flex;
+                gap: var(--task-children-gap);
+                margin-top: var(--task-gap);
+                text-align: center;
+            }
+
+            
+                #tool1 .task p {
+                    display: grid;
+                    place-items: center;
+
+                    padding: 0.25rem;
+
+                    min-width: 40%;
+                    border: 2px solid gray;
+                    border-radius: 5px;
+
+                    height: var(--task-height);
+                    background-color: #EDEDED;
+
+                }
+
+                #tool1 .task .btn {
+                    height: var(--task-height);
+                    min-width: 6rem;
+                    white-space: nowrap;
+                    border-radius: 5px;
+                    border: none;
+                    outline: none;
+                }
+                    #tool1 .task .btn:hover {cursor: pointer; transition-duration: var(--txt-hover-timing);}
+                
+                @keyframes onClick {
+                    from {margin-top: none; box-shadow: none;}
+                    50% {margin-top: 5px; box-shadow: 1px 1px 3px}
+                    to {margin-top: none; box-shadow: none;}
+                }
+
+                /* @ Defining button designs - delete, edit, set, etcetera. */
+
+                #tool1 .task .btn-delete        {background-color:var(--red)}
+                #tool1 .task .btn-delete:hover  {background-color:var(--darkred)}
+                #tool1 .task .btn-edit          {background-color:var(--orange)}
+                #tool1 .task .btn-edit:hover    {background-color:var(--darkorange)}
+                #tool1 .task .btn-succeed       {background-color:var(--green)}
+                #tool1 .task .btn-succeed:hover {background-color:var(--darkgreen)}
+
+                #tool1 .task .btn-delete:active {animation-name: onClick; animation-duration: 0.1s;}
+                #tool1 .task .btn-edit:active   {animation-name: onClick; animation-duration: 0.1s;}
+                #tool1 .task .btn-succeed:active{animation-name: onClick; animation-duration: 0.1s;}
+
+            #tool1 textarea {
+                width: 50%;
+            }
         
         #tool2:target {
             display: flex;
@@ -217,6 +289,8 @@ header {
         .tool-title {
             align-self: center;
         }
+
+
 
 footer {
     border-top: var(--default-border-regular);
@@ -244,5 +318,7 @@ footer {
         position: static;
     }
 
-    
+    .task {
+        flex-direction: column;
+    }
 }
